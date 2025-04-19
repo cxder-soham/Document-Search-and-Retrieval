@@ -1,0 +1,101 @@
+KNN Search on CISI Data 
+1. Key Components of Retrieval Algorithms 
+1.1 Data Representation 
+Data representation is crucial for effective information retrieval. In this lab, we use the TF
+IDF (Term Frequency-Inverse Document Frequency) technique to convert textual data 
+into numerical vectors, which capture the importance of terms relative to documents in the 
+corpus. 
+• TF (Term Frequency): Frequency of a term in a document. 
+• IDF (Inverse Document Frequency): Reflects how common or rare a term is across 
+all documents. 
+By using TF-IDF, the model focuses on terms that are significant within individual 
+documents while discounting ubiquitous terms. 
+1.2 Similarity Metrics 
+To find similar documents, a similarity or distance metric is used. The Euclidean distance is 
+employed in KNN algorithms here. 
+• Euclidean Distance: Measures the straight-line distance between two points in a 
+multi-dimensional space. 
+• Cosine Similarity (alternative): Often used in text-based tasks due to its effectiveness 
+in handling high-dimensional sparse data. 
+2. Computational Burden of Naïve Nearest Neighbor 
+Search 
+2.1 Challenges of Brute-Force Search 
+A naive nearest neighbor approach involves computing distances between the query point and 
+every other data point. While simple, this is computationally expensive, especially for large 
+datasets. 
+• Time Complexity: O(n⋅d)O(n \cdot d) where n is the number of data points and d is 
+the dimensionality. 
+• Memory Usage: Storing all distance computations can strain resources. 
+2.2 Real-World Implication 
+For text datasets like CISI, where TF-IDF creates high-dimensional sparse data, brute-force 
+search becomes inefficient, necessitating more scalable solutions. 
+3. Scalable Alternatives to Nearest Neighbor Search 
+3.1 KD-Trees 
+KD-Tree (k-dimensional tree) is a space-partitioning data structure for organizing points in 
+a k-dimensional space. 
+• How it works: 
+o Recursively splits the data space along the data axes. 
+o Each node in the tree represents a hyperplane dividing the space. 
+• Pros: 
+o Efficient for low to moderate dimensional data. 
+o Quick retrieval for small datasets. 
+• Cons: 
+o Performance degrades as dimensionality increases (curse of dimensionality). 
+Lab Implementation: 
+• Applied KD-Tree using NearestNeighbors from Scikit-learn with 
+algorithm='kd_tree'. 
+• Retrieved the top 5 nearest documents for a given query. 
+3.2 Ball Trees 
+Ball Tree organizes data in a tree of hyperspheres (balls) for efficient querying. 
+• How it works: 
+o Data points are recursively divided into clusters. 
+o Each node is represented by a ball covering its points. 
+• Pros: 
+o More efficient for non-uniform or clustered data. 
+• Cons: 
+o Struggles with high-dimensional sparse data like TF-IDF. 
+Lab Implementation: 
+• Applied Ball Tree using NearestNeighbors with algorithm='ball_tree'. 
+• Compared retrieval performance with KD-Tree. 
+3.3 Locality Sensitive Hashing (LSH) 
+LSH is designed for high-dimensional data and approximates nearest neighbor search. 
+• How it works: 
+o Hashes data points so that similar points map to the same buckets. 
+o Reduces the search space by only considering points in the same bucket. 
+• Use Cases: 
+o Text retrieval 
+o Image matching 
+o Anomaly detection 
+Future Lab: 
+• Implement LSH to compare approximate nearest neighbor results with KD-Tree and 
+Ball Tree. 
+4. Regression Models and Their Role in KNN Search 
+Regression models help understand the underlying data patterns and refine feature selection 
+before applying KNN. 
+4.1 Linear Regression 
+• Establishes a baseline for predicting document relevance using TF-IDF features. 
+4.2 Ridge Regression 
+• Adds L2 regularization to reduce overfitting and handle multicollinearity. 
+4.3 Lasso Regression 
+• Uses L1 regularization to enforce sparsity, reducing the number of active features. 
+4.4 Impact on KNN 
+• Regression models help pre-select features and reduce dimensionality. 
+• Improves KNN performance by focusing on informative features. 
+5. Evaluation Metrics 
+5.1 Mean Squared Error (MSE) 
+Used to evaluate regression model performance: 
+MSE=1n∑i=1n(yi−y^i)2MSE = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 
+Lower MSE indicates better prediction accuracy. 
+5.2 KNN Evaluation 
+• Compared neighbor indices from KD-Tree and Ball Tree. 
+• Analyzed computational efficiency and retrieval relevance. 
+6. Summary of Findings 
+Method 
+Strengths 
+Weaknesses 
+KD-Tree Fast for low-dimensional data 
+Ball Tree Good for clustered data 
+LSH 
+Inefficient for high-dimensional 
+Poor with sparse high-dimensional 
+Fast for high-dimensional data (planned) Approximate results, not exact 

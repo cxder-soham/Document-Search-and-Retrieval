@@ -1,0 +1,38 @@
+{
+    "family": "doc-search-task",
+    "networkMode": "awsvpc",
+    "containerDefinitions": [
+      {
+        "name": "doc-search-container",
+        "image": "260874765701.dkr.ecr.ap-south-1.amazonaws.com/doc-search-repo:latest",
+        "essential": true,
+        "portMappings": [
+          {
+            "containerPort": 5000,
+            "hostPort": 5000
+          }
+        ],
+        "environment": [
+          {
+            "name": "AWS_S3_BUCKET",
+            "value": "my-doc-search-bucket"
+          },
+          {
+            "name": "ELASTICSEARCH_HOST",
+            "value": "http://<EC2_PUBLIC_IP>:9200"
+          }
+        ],
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "/ecs/doc-search",
+            "awslogs-region": "ap-south-1",
+            "awslogs-stream-prefix": "ecs"
+          }
+        }
+      }
+    ],
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512"
+  }
