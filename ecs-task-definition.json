@@ -4,7 +4,7 @@
     "containerDefinitions": [
       {
         "name": "doc-search-container",
-        "image": "260874765701.dkr.ecr.ap-south-1.amazonaws.com/doc-search-repo:latest",
+        "image": "<account-id>.dkr.ecr.ap-south-1.amazonaws.com/doc-search-repo:latest",
         "essential": true,
         "portMappings": [
           {
@@ -19,7 +19,7 @@
           },
           {
             "name": "ELASTICSEARCH_HOST",
-            "value": "http://65.0.138.144:9200"
+            "value": "http://<EC2-public-ip>:9200"
           }
         ],
         "logConfiguration": {
@@ -35,6 +35,6 @@
     "requiresCompatibilities": ["FARGATE"],
     "cpu": "256",
     "memory": "512",
-    "executionRoleArn": "arn:aws:iam::260874765701:role/DocSearchECSTaskRole",
-    "taskRoleArn": "arn:aws:iam::260874765701:role/DocSearchECSTaskRole"
+    "executionRoleArn": "arn:aws:iam::<account-id>:role/DocSearchECSTaskRole",
+    "taskRoleArn": "arn:aws:iam::<account-id>:role/DocSearchECSTaskRole"
   }

@@ -10,10 +10,10 @@ SERVICE_NAME="doc-search-service"
 TASK_FAMILY="doc-search-task"
 
 # Build and push Docker image
-aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin 260874765701.dkr.ecr.$AWS_REGION.amazonaws.com
+aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin <account-id>.dkr.ecr.$AWS_REGION.amazonaws.com
 docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-docker tag $ECR_REPOSITORY:$IMAGE_TAG 260874765701.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
-docker push 260874765701.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+docker tag $ECR_REPOSITORY:$IMAGE_TAG <account-id>.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+docker push <account-id>.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
 # Register task definition
 aws ecs register-task-definition --cli-input-json file://ecs-task-definition.json --region $AWS_REGION
